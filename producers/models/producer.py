@@ -86,9 +86,9 @@ class Producer:
                 }
             )
             client.create_topics([newTopic])
-            print("topic created")
+            print("topic created: ",self.topic_name)
         else:
-            print("topic already exists")
+            print(self.topic_name," :topic already exists")
        # for topic, future in futures.items():
         #    try:
          #       future.result()

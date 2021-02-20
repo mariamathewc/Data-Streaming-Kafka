@@ -62,20 +62,27 @@ def run_server():
     application.listen(WEB_SERVER_PORT)
 
     # Build kafka consumers
+    #
+    #"(\w*|\.)*weather(.(\w*|\.))*",
+    #"(\w*|\.)*stations.table(.(\w*|\.))",
+    #"(\w*|\.)*station.arrivals.(.(\w*|\.))*",
     consumers = [
-        KafkaConsumer(
-            "(\w*|\.)*weather(.(\w*|\.))*",
+        KafkaConsumer(  
+            
+            "org.chicago.cta.weather.v1",
             weather_model.process_message,
             offset_earliest=True,
         ),
         KafkaConsumer(
-            "(\w*|\.)*stations.table(.(\w*|\.))",
+            
+            "org.chicago.cta.stations.table.v1",
             lines.process_message,
             offset_earliest=True,
             is_avro=False,
         ),
         KafkaConsumer(
-            "(\w*|\.)*station.arrivals.(.(\w*|\.))*",
+            
+            "org.chicago.cta.station.arrivals.v1",
             lines.process_message,
             offset_earliest=True,
         ),
@@ -92,6 +99,7 @@ def run_server():
             f"Open a web browser to http://localhost:{WEB_SERVER_PORT} to see the Transit Status Page"
         )
         for consumer in consumers:
+            logger.info(consumer)
             tornado.ioloop.IOLoop.current().spawn_callback(consumer.consume)
 
         tornado.ioloop.IOLoop.current().start()
