@@ -22,12 +22,14 @@ class Weather:
         #
         #
         logger.info("processing weather logger")
-        print("processing weather", message.topic())
-        
-        print("message_value", message.value())
-        value = message.value()
-        self.temperature = value["temperature"]
-        self.status = value["status"]
+        try:
+            value = json.loads(json.dumps(message.value()))
+            self.temperature = value.get("temperature")
+            self.status = value.get("status")
+        except Exception as e:
+            logger.debug("erro while processed weather message")
+            
+       
         logger.debug(
             "weather is now %sf and %s", self.temperature, self.status.replace("_", " ")
         )

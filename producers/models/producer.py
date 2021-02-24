@@ -41,8 +41,9 @@ class Producer:
             # TODO
             # TODO
             # TODO
-            "schema.registry.url":"http://localhost:8081",
-            "bootstrap.servers":"PLAINTEXT://localhost:9092"
+            "zookeeper.connect": "localhost:2181",
+            "schema.registry.url": "http://localhost:8081",
+            "bootstrap.servers": "PLAINTEXT://localhost:9092"
         }
 
         # If the topic does not already exist, try to create it
