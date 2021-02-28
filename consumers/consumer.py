@@ -41,7 +41,7 @@ class KafkaConsumer:
              'bootstrap.servers': 'PLAINTEXT://localhost:9092',
             'group.id': 'font-end-consumer',
             'default.topic.config': {
-                'auto.offset.reset': 'earliest'
+                'auto.offset.reset': "earliest" if offset_earliest else "latest"
             },
         }
 
@@ -51,7 +51,7 @@ class KafkaConsumer:
                 'bootstrap.servers': 'PLAINTEXT://localhost:9092',
                 'group.id': 'font-end-consumer',
                 'default.topic.config': {
-                    'auto.offset.reset': 'earliest'
+                    'auto.offset.reset': "earliest" if offset_earliest else "latest"
                 },
                 'schema.registry.url': 'http://localhost:8081'
             })
@@ -60,7 +60,7 @@ class KafkaConsumer:
                 'bootstrap.servers': 'PLAINTEXT://localhost:9092',
                 'group.id': 'font-end-consumer',
                 'default.topic.config': {
-                    'auto.offset.reset': 'earliest'
+                    'auto.offset.reset': "earliest" if offset_earliest else "latest"
                 },
             })
 
